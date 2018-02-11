@@ -1,7 +1,7 @@
 var selectedTest = process.argv[2];
 
 /////////////////////// define the test suite /////////////////////////
-var tests= [ 
+var tests= [
 //    /* 0 */ [ "1 > 2", '["(1>2)",false]' ],
 
 /* Test # 0*/ [ "a = 14 + (2^3)^2" , '["a",78]' ],
@@ -32,7 +32,7 @@ var tests= [
 /* Test # 24*/    [ "a = (b = c) = dogs = 14 + 2^3^2", "Does not parse" ],
 /* Test # 25*/    [ "a = 22 = c = dogs = 14 + 2^3^2", "Does not parse" ],
 /* Test # 26*/    [ "a = c = dogs = ", "Does not parse" ]
-    
+
 
 ];
 
@@ -55,7 +55,7 @@ if (selectedTest) {
 	console.log("Error: Test number is invalid or out of range");
 	process.exit(1);
     }
-} else { 
+} else {
     console.log("===========================");
     console.log("Test suite for astmts.js");
     console.log("===========================");
@@ -72,8 +72,9 @@ function parseInput(testNumber) {
     try {
 	console.log("Test #",testNumber,"    Input = ", input);
 	result = "" + parser.parse( input );
-	console.log(result);
-	console.log("\t\t\t\t\tTest ", outcome ===  result ? 
+	console.log("result ", result);
+  console.log("outcome: ", outcome);
+	console.log("\t\t\t\t\tTest ", outcome ===  result ?
 		    "PASSED" : "FAILED");
     } catch (e) {
 	// exception is presumably due to a parsing error
@@ -83,5 +84,3 @@ function parseInput(testNumber) {
     }
     console.log("----------------------------------------------------");
 }
-    
-

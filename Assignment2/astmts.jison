@@ -1,8 +1,8 @@
-/* 
+/*
     description: CS 331 - Spring 2017 - A2 - Problem 2
 */
 
-// lexical section of the grammar 
+// lexical section of the grammar
 // ==============================
 
 %lex
@@ -32,3 +32,55 @@
 
 %%
 
+program
+  : assign "EOF"
+    { return "[" + $1 + "]"; }
+  ;
+
+assign
+  : exp
+    { $$ = $1; }
+  | "ID" "EQUAL" assign
+    { $$ =  [ $1[0], $3]; }
+  ;
+
+exp
+  : factor
+    { $$ = $1; }
+  | exp "PLUS" factor
+    { $$ = $1 + $3; }
+  | exp "MINUS" factor
+    { $$ = $1 - $3; }
+  ;
+
+factor
+  : term
+    { $$ = $1; }
+  | factor "TIMES" term
+    { $$ = $1 * $3; }
+  | factor "DIV" term
+    { $$ = Math.floor($1 / $3); }
+  | factor "MOD" term
+    { $$ = $1 % $3; }
+  ;
+
+term
+  : power
+    { $$ = $1; }
+  | power "POW" term
+    { $$ = $1 ^ $3; }
+  ;
+
+power
+  : parenthesis
+    { $$ = $1; }
+  | "UNARYMINUS" power
+    { $$ = -$2; }
+  ;
+
+parenthesis
+  : "LPAREN" exp "RPAREN"
+    { $$ = $2 ; }
+  | "NUMBER"
+    {$$ = Number($1); }
+  ;
