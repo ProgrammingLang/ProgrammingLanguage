@@ -68,7 +68,7 @@ term
   : power
     { $$ = $1; }
   | power "POW" term
-    { $$ = $1 ^ $3; }
+    { $$ = Math.pow($1, $3); }
   ;
 
 power
