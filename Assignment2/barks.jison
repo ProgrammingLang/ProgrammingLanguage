@@ -22,27 +22,24 @@
 %%
 
 program
-  : darcy "EOF"
-  | bingley "EOF"
-  ;
-
-darcy
-  : "YIP" barkDarcy
-  | "YAP" darcy
-  ;
-
-barkDarcy
-  : "YIP" darcy
-  | "YAP" barkDarcy
-  | /*empty*/
+  : bingley "EOF"
+    { return "Bingley yipped " + $1 + " times"; }
   ;
 
 bingley
-  : barkBingley
-  | bingley "YIP" barkBingley "YIP" 
+  : "YAP" bingley
+    { return $$ = 0 + $2; }
+  | "YIP" barkBingley
+    { return $$ = 1 + $2; }
+  | "YAP"
+    { return $$ = 0; }
   ;
 
 barkBingley
-  : barkBingley "YAP"
-  | /*empty*/
+  : "YAP" barkBingley
+    { return $$ = 0 + $2; }
+  | "YIP" bingley
+    { return $$ = 1 + $2; }
+  | "YIP"
+    { return $$ = 1; }
   ;
