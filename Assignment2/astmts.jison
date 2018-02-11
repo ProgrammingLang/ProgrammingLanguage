@@ -34,14 +34,14 @@
 
 program
   : assign "EOF"
-    { return "[" + $1 + "]"; }
+    { return JSON.stringify($1); }
   ;
 
 assign
   : exp
     { $$ = $1; }
   | "ID" "EQUAL" assign
-    { $$ =  [ $1, $3]; }
+    { $$ =  [$1, $3]; }
   ;
 
 exp
