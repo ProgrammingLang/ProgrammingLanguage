@@ -41,12 +41,12 @@ assign
   : exp
     { $$ = $1; }
   | "ID" "EQUAL" assign
-    { $$ =  [$1, $3]; }
+    { $$ =  [$3[0] + $1, $3[1]]; }
   ;
 
 exp
   : factor
-    { $$ = $1; }
+    { $$ = [" ",$1]; }
   | exp "PLUS" factor
     { $$ = $1 + $3; }
   | exp "MINUS" factor
@@ -82,5 +82,5 @@ parenthesis
   : "LPAREN" exp "RPAREN"
     { $$ = $2 ; }
   | "NUMBER"
-    {$$ = Number($1); }
+    {$$ = ["", Number($1)]; }
   ;
